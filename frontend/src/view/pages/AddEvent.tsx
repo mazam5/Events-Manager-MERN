@@ -53,16 +53,16 @@ const AddEvent = () => {
         API_URL + "/events",
         {
           ...eventFormData,
-          userId: decodedToken.id,
+          createdBy: decodedToken.id,
         },
         {
           headers: {
-            Authorization: `bearerToken ${bearerToken}`,
+            Authorization: `Bearer ${bearerToken}`,
           },
         },
       );
-      console.log(response);
       console.log(response.data);
+      console.log("✅ Event Added Successfully");
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +88,7 @@ const AddEvent = () => {
               isRequired={true}
               inputName="Description"
               inputType="text"
-              inputId="shortDescription"
+              inputId="description"
               inputValue={eventFormData.description}
               inputChange={onEventInputChange}
             />
@@ -97,7 +97,7 @@ const AddEvent = () => {
               isRequired={true}
               inputName="Event Date"
               inputType="date"
-              min={new Date().toISOString().split("T")[0]}
+              // min={new Date().toISOString().split("T")[0]}
               inputId="date"
               inputValue={eventFormData.date}
               inputChange={onEventInputChange}
@@ -112,10 +112,11 @@ const AddEvent = () => {
               inputChange={onEventInputChange}
             />
             <InputSelect
+              inputId="mode"
               inputName="Mode"
               icon={<LucideCalendarCheck size={24} />}
-              selectValue={eventFormData.mode}
-              onEventInputChange={onEventInputChange}
+              inputValue={eventFormData.mode}
+              inputChange={onEventInputChange}
               options={[
                 { label: "Hybrid", value: "hybrid" },
                 { label: "In-Person", value: "in-person" },
@@ -123,10 +124,11 @@ const AddEvent = () => {
               ]}
             />
             <InputSelect
+              inputId="duration"
               inputName="Duration"
               icon={<Timer size={24} />}
-              selectValue={eventFormData.duration}
-              onEventInputChange={onEventInputChange}
+              inputValue={eventFormData.duration}
+              inputChange={onEventInputChange}
               options={[
                 { label: "1 Hour", value: "1 hour" },
                 { label: "2 Hours", value: "2 hours" },
@@ -148,10 +150,15 @@ const AddEvent = () => {
             onClick={() => {
               setEventFormData({
                 ...eventFormData,
-                speakers: [...eventFormData.speakers, speaker.trim()],
+                speakers: [...eventFormData.speakers, speaker],
               });
               setSpeaker("");
-              alert("speaker added");
+            }}
+            onRemove={(index) => {
+              const newSpeakers = eventFormData.speakers.filter(
+                (_, i) => i !== index,
+              );
+              setEventFormData({ ...eventFormData, speakers: newSpeakers });
             }}
           />
 
@@ -166,10 +173,15 @@ const AddEvent = () => {
             onClick={() => {
               setEventFormData({
                 ...eventFormData,
-                categories: [...eventFormData.categories, category.trim()],
+                categories: [...eventFormData.categories, category],
               });
               setCategory("");
-              alert("category added");
+            }}
+            onRemove={(index) => {
+              const newCategories = eventFormData.categories.filter(
+                (_, i) => i !== index,
+              );
+              setEventFormData({ ...eventFormData, categories: newCategories });
             }}
           />
 
@@ -184,10 +196,15 @@ const AddEvent = () => {
             onClick={() => {
               setEventFormData({
                 ...eventFormData,
-                agendas: [...eventFormData.agendas, agenda.trim()],
+                agendas: [...eventFormData.agendas, agenda],
               });
               setAgenda("");
-              alert("agenda added");
+            }}
+            onRemove={(index) => {
+              const newAgendas = eventFormData.agendas.filter(
+                (_, i) => i !== index,
+              );
+              setEventFormData({ ...eventFormData, agendas: newAgendas });
             }}
           />
           <button

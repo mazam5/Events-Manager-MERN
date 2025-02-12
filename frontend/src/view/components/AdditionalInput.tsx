@@ -10,6 +10,7 @@ const AdditionalInput = ({
   onInputChange,
   onClick,
   values,
+  onRemove,
 }: {
   icon: React.ReactNode;
   inputValue: string;
@@ -18,6 +19,7 @@ const AdditionalInput = ({
   eventFormData: EventForm;
   inputName: string;
   onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onRemove: (index: number) => void;
   onClick: () => void;
 }) => {
   return (
@@ -56,7 +58,7 @@ const AdditionalInput = ({
             <p className="text-sm">{data}</p>
             <button
               className="rounded-md text-black hover:cursor-pointer hover:text-red-500"
-              onClick={() => {}}
+              onClick={() => onRemove(index)}
             >
               <X size={20} />
             </button>

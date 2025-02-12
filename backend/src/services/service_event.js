@@ -1,8 +1,20 @@
 import { Event } from "../models/model_event.js";
 
-export const createEvent = async ({ title, description, date, userId }) => {
-  return await Event.create({ title, description, date, createdBy: userId });
-};
+// export const createEvent = async ({
+//   title,
+//   description,
+//   date,
+//   location,
+//   userId,
+// }) => {
+//   return await Event.create({
+//     title,
+//     description,
+//     date,
+//     location,
+//     createdBy: userId,
+//   });
+// };
 
 export const getAllEvents = async () => {
   return await Event.find()

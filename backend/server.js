@@ -14,6 +14,8 @@ const io = new Server(server, { cors: { origin: "*" } });
 
 configDotenv();
 const PORT = process.env.NODEJS_PORT;
+app.use(express.json());
+
 app.use(
   cors({
     origin: "*",
@@ -21,7 +23,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

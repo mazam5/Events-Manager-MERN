@@ -1,8 +1,22 @@
+import axios from "axios";
 import { ChevronRight } from "lucide-react";
-import events from "../../data";
+import { useEffect, useState } from "react";
+import { API_URL } from "../../CONSTANTS";
 import EventCard from "../components/EventCard";
 
 const Dashboard = () => {
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    fetchAllEvents();
+  }, []);
+  const fetchAllEvents = async () => {
+    try {
+      const response = await axios.get(API_URL + "/events");
+      setEvents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       <div className="container mx-auto p-4 md:p-8">
@@ -15,9 +29,9 @@ const Dashboard = () => {
         </div>
         <div className="my-4 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
           {events
-            .filter(
-              (event) => Date.parse(event.dateTime) > new Date().getTime(),
-            )
+            // .filter(
+            //   (event) => Date.parse(event.date) > new Date().getTime(),
+            // )
             .slice(0, 3)
             .map((event, index) => (
               <div key={index}>
@@ -36,9 +50,9 @@ const Dashboard = () => {
         </div>
         <div className="my-4 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
           {events
-            .filter(
-              (event) => Date.parse(event.dateTime) < new Date().getTime(),
-            )
+            // .filter(
+            //   (event) => Date.parse(event.dateTime) < new Date().getTime(),
+            // )
             .slice(0, 3)
             .map((event, index) => (
               <div key={index}>

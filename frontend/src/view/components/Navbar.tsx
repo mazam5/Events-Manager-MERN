@@ -17,6 +17,8 @@ const Navbar = () => {
         <div className="flex">
           <button
             onClick={() => navigate("/add-event")}
+            disabled={localStorage.getItem("token") === null ? true : false}
+            title="Only logged in users can add events"
             className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white"
           >
             <span>Add Event</span>
@@ -24,6 +26,8 @@ const Navbar = () => {
           </button>
           <button
             onClick={() => navigate("/manage-events")}
+            title="Only logged in users can manage events"
+            disabled={localStorage.getItem("token") === null ? true : false}
             className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white"
           >
             <span>Manage Events</span>

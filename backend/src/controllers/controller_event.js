@@ -1,6 +1,5 @@
 import { Event } from "../models/model_event.js";
 import {
-  createEvent as createEventService,
   getAllEvents,
   getEventById,
   updateEvent,
@@ -10,7 +9,10 @@ import {
 
 export const createEvent = async (req, res) => {
   try {
-    const event = await Event.create({ ...req.body, createdBy: req.user.id });
+    const event = await Event.create({
+      ...req.body,
+      createdBy: req.body.createdBy,
+    });
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -24,9 +26,10 @@ export const getEvents = async (req, res) => {
 
 export const createEventHandler = async (req, res) => {
   try {
-    const event = await createEvent({ ...req.body, userId: req.user.id });
+    const event = await createEvent(req, res);
     res.status(201).json(event);
   } catch (error) {
+    console.error("Error in createEventHandler:", error);
     res.status(400).json({ error: error.message });
   }
 };

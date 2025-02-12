@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
@@ -15,17 +15,13 @@ const useAuth = () => {
     password: "@Test#123",
     confirmPassword: "@Test#123",
   });
-  const onLoginChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
-  ) => setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  const onLoginChange = (e) =>
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
 
-  const onRegisterChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
-  ) => setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  const onRegisterChange = (e) =>
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
 
-  const submitLogin = async (
-    e: ChangeEvent<HTMLFormElement> | ChangeEvent<HTMLButtonElement>,
-  ) => {
+  const submitLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(API_URL + "/auth/login", loginData);
@@ -39,9 +35,7 @@ const useAuth = () => {
     }
   };
 
-  const submitRegister = async (
-    e: ChangeEvent<HTMLFormElement> | ChangeEvent<HTMLButtonElement>,
-  ) => {
+  const submitRegister = async (e) => {
     e.preventDefault();
     if (registerData.password !== registerData.confirmPassword) {
       alert("Passwords do not match");

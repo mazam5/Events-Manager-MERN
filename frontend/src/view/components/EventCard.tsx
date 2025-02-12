@@ -7,7 +7,7 @@ const EventCard = ({
 }: {
   event: {
     title: string;
-    shortDescription: string;
+    description: string;
     location: string;
     dateTime: string;
     mode: string;
@@ -49,7 +49,7 @@ const EventCard = ({
           <span>|</span>
           <p className="mx-auto max-xl:text-xs max-md:text-sm">{event.mode}</p>
         </div>
-        <p className="mt-2">{event.shortDescription}</p>
+        <p className="mt-2">{event.description}</p>
         {!completed && (
           <div className="flex justify-end">
             <button className="rounded-md bg-cyan-500 p-2 text-white hover:cursor-pointer hover:bg-cyan-700">

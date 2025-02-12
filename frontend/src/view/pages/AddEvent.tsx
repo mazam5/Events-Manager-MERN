@@ -10,7 +10,7 @@ import {
   Text,
   Timer,
 } from "lucide-react";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EventForm from "../../model/add_event";
 import AdditionalInput from "../components/AdditionalInput";
 import InputElement from "../components/InputElement";
@@ -42,14 +42,10 @@ const AddEvent = () => {
   const [agenda, setAgenda] = useState("");
   const [category, setCategory] = useState("");
 
-  const onEventInputChange = (
-    e:
-      | ChangeEvent<HTMLInputElement>
-      | ChangeEvent<HTMLTextAreaElement>
-      | ChangeEvent<HTMLSelectElement>,
-  ) => setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
+  const onEventInputChange = (e) =>
+    setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
 
-  const addToEvents = async (e: FormEvent<HTMLFormElement>) => {
+  const addToEvents = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(

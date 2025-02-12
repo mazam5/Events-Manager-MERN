@@ -73,7 +73,10 @@ const LogoutModal = (props: { setShowLogout: (value: boolean) => void }) => {
             </button>
             <button
               className="rounded-md border p-2 text-black hover:cursor-pointer hover:bg-red-500 hover:text-white"
-              onClick={() => navigate("/")}
+              onClick={() => {
+                navigate("/");
+                localStorage.removeItem("token");
+              }}
             >
               Logout
             </button>

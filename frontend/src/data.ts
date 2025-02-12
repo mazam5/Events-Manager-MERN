@@ -7,10 +7,8 @@ const events = [
     duration: "3 hours",
     mode: "Online",
     speakers: ["Dr. Emily Carter", "Dr. David Lee"],
-    shortDescription:
+    description:
       "Explore the latest advancements and applications of Artificial Intelligence in the healthcare industry.",
-    longDescription:
-      "The AI in Healthcare Summit brings together industry experts, healthcare professionals, and technology innovators to discuss the latest trends and developments in the field of Artificial Intelligence. From predictive analytics to personalized medicine, this summit covers a wide range of topics that are shaping the future of healthcare.",
     categories: ["Technology", "Healthcare", "AI"],
     agendas: [
       {
@@ -43,10 +41,8 @@ const events = [
     duration: "2 hours",
     mode: "Online",
     speakers: ["Jane Green", "Michael Brown"],
-    shortDescription:
+    description:
       "Learn practical tips and strategies for adopting a more sustainable lifestyle.",
-    longDescription:
-      "The Sustainable Living Workshop is designed to help individuals and communities reduce their environmental impact and live more sustainably. From eco-friendly practices to renewable energy solutions, this workshop covers a wide range of topics that can make a positive difference in the world.",
     eventCategories: ["Environment", "Sustainability", "Lifestyle"],
     agendas: [
       {
@@ -79,7 +75,7 @@ const events = [
     duration: "4 hours",
     mode: "In-person",
     speakers: ["Sarah Jones"],
-    shortDescription:
+    description:
       "Hone your creative writing skills with renowned author Sarah Jones.",
     eventCategories: ["Writing", "Literature", "Arts"],
     agendas: [
@@ -112,7 +108,7 @@ const events = [
     duration: "1 day",
     mode: "Hybrid",
     speakers: ["Kenji Tanaka", "Aisha Khan"],
-    shortDescription:
+    description:
       "Connect with industry leaders and explore the future of technology.",
     eventCategories: ["Technology", "Innovation", "Business"],
     agendas: [
@@ -155,7 +151,7 @@ const events = [
     duration: "3 hours",
     mode: "In-person",
     speakers: ["Chef Jean-Pierre Dubois", "Sommelier Maria Rodriguez"],
-    shortDescription:
+    description:
       "Indulge in a culinary experience featuring world-class food and wine.",
     eventCategories: ["Food", "Wine", "Culture"],
     agendas: [
@@ -183,7 +179,7 @@ const events = [
     duration: "1 day",
     mode: "Online",
     speakers: ["David Miller", "Susan Wilson"],
-    shortDescription:
+    description:
       "Learn the latest marketing strategies and techniques to grow your business.",
     eventCategories: ["Marketing", "Business", "Sales"],
     agendas: [
@@ -221,8 +217,7 @@ const events = [
     duration: "3 hours",
     mode: "In-person",
     speakers: ["Various Artists"],
-    shortDescription:
-      "Enjoy live performances from a variety of musical artists.",
+    description: "Enjoy live performances from a variety of musical artists.",
     eventCategories: ["Music", "Entertainment", "Arts"],
     agendas: [
       {
@@ -249,7 +244,7 @@ const events = [
     duration: "6 hours",
     mode: "In-person",
     speakers: ["John Smith"],
-    shortDescription:
+    description:
       "Improve your photography skills with professional photographer John Smith.",
     eventCategories: ["Photography", "Arts", "Education"],
     agendas: [
@@ -287,7 +282,7 @@ const events = [
     mode: "In-person",
     duration: "2 hours",
     speakers: ["Robert Johnson"],
-    shortDescription:
+    description:
       "Learn how to effectively manage your finances and plan for the future.",
     eventCategories: ["Finance", "Business", "Personal Development"],
     agendas: [
@@ -316,7 +311,7 @@ const events = [
     dateTime: "2025-12-08T10:00:00",
     duration: "3 hours",
     speakers: ["Local Artisans"],
-    shortDescription:
+    description:
       "Find unique handmade gifts and crafts for the holiday season.",
     eventCategories: ["Crafts", "Shopping", "Community"],
     agendas: [

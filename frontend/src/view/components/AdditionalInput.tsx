@@ -3,7 +3,6 @@ import { ChangeEvent } from "react";
 import EventForm from "../../model/add_event";
 import InputElement from "./InputElement";
 const AdditionalInput = ({
-  key,
   icon,
   inputValue,
   inputName,
@@ -12,7 +11,6 @@ const AdditionalInput = ({
   onClick,
   values,
 }: {
-  key: number;
   icon: React.ReactNode;
   inputValue: string;
   inputId: string;
@@ -23,7 +21,7 @@ const AdditionalInput = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="md:h-24" key={key}>
+    <div className="md:h-24">
       <div className="flex items-end">
         <InputElement
           icon={icon}

@@ -5,7 +5,7 @@ interface EventForm {
   duration: string;
   mode: string;
   speakers: string[];
-  shortDescription: string;
+  description: string;
   categories: string[];
   agendas: string[];
 }

@@ -9,11 +9,11 @@ const AuthRegisterForm = () => {
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg">
         <h1 className="text-center text-2xl font-bold">Register</h1>
-        <form className="mt-4" method="POST">
+        <form className="mt-4" onSubmit={submitRegister}>
           <p className="text-center text-sm">
             Already have an account?{" "}
             <span
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/")}
               className="hover: text-cyan-600 hover:cursor-pointer hover:underline"
             >
               Login
@@ -51,13 +51,14 @@ const AuthRegisterForm = () => {
               inputId="confirmPassword"
               inputValue={registerData.confirmPassword}
               inputChange={onRegisterChange}
+              // onKeyDown={(e) => e.key === "Enter" && submitRegister}
             />
-            <input
+            <button
               type="submit"
-              onClick={() => submitRegister}
               className="mt-4 w-full cursor-pointer rounded bg-cyan-500 p-2 font-semibold text-white hover:rounded-4xl hover:bg-cyan-700"
-              value="Register"
-            />
+            >
+              Register
+            </button>
           </div>
         </form>
         <p className="mb-2 text-center">OR</p>

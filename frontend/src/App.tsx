@@ -10,8 +10,7 @@ import ManageEvents from "./view/pages/ManageEvents";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<AuthLoginForm />} />
-      <Route path="/login" element={<AuthLoginForm />} />
+      <Route index path="/" element={<AuthLoginForm />} />
       <Route path="/register" element={<AuthRegisterForm />} />
 
       <Route element={<Layout />}>

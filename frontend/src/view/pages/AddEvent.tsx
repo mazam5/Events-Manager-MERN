@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   CalendarPlus,
   ChartBarStacked,
@@ -9,13 +10,23 @@ import {
   Text,
   Timer,
 } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import EventForm from "../../model/add_event";
 import AdditionalInput from "../components/AdditionalInput";
 import InputElement from "../components/InputElement";
 import InputSelect from "../components/InputSelect";
+import { jwtDecode } from "jwt-decode";
 
 const AddEvent = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const bearerToken = localStorage.getItem("token");
+  const [decodedToken, setDecodedToken] = useState({ id: "" });
+
+  useEffect(() => {
+    if (bearerToken) {
+      setDecodedToken(jwtDecode(bearerToken));
+    }
+  }, []);
   const [eventFormData, setEventFormData] = useState<EventForm>({
     title: "Event Title",
     location: "Hyderabad, India",
@@ -23,7 +34,7 @@ const AddEvent = () => {
     duration: "",
     mode: "",
     speakers: [],
-    shortDescription: "Event Description",
+    description: "Event Description",
     categories: [],
     agendas: [],
   });
@@ -38,11 +49,33 @@ const AddEvent = () => {
       | ChangeEvent<HTMLSelectElement>,
   ) => setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
 
+  const addToEvents = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        API_URL + "/events",
+        {
+          ...eventFormData,
+          userId: decodedToken.id,
+        },
+        {
+          headers: {
+            Authorization: `bearerToken ${bearerToken}`,
+          },
+        },
+      );
+      console.log(response);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col items-center justify-center bg-gray-100">
       <div className="m-5 w-full max-w-xl rounded-lg bg-white p-5 shadow-lg">
         <h1 className="text-center text-2xl font-bold">Add Event</h1>
-        <form method="POST">
+        <form onSubmit={addToEvents}>
           <div className="mb-2 grid grid-cols-2 gap-4">
             <InputElement
               icon={<FolderPen size={24} />}
@@ -59,7 +92,7 @@ const AddEvent = () => {
               inputName="Description"
               inputType="text"
               inputId="shortDescription"
-              inputValue={eventFormData.shortDescription}
+              inputValue={eventFormData.description}
               inputChange={onEventInputChange}
             />
             <InputElement
@@ -76,6 +109,7 @@ const AddEvent = () => {
               icon={<MapPinned size={24} />}
               inputName="Location"
               inputType="text"
+              isRequired={true}
               inputId="location"
               inputValue={eventFormData.location}
               inputChange={onEventInputChange}
@@ -97,17 +131,16 @@ const AddEvent = () => {
               selectValue={eventFormData.duration}
               onEventInputChange={onEventInputChange}
               options={[
-                { label: "1 Hour", value: "60" },
-                { label: "2 Hours", value: "120" },
-                { label: "3 Hours", value: "180" },
-                { label: "4 Hours", value: "240" },
-                { label: "5 Hours", value: "300" },
-                { label: "1 Day", value: "1440" },
+                { label: "1 Hour", value: "1 hour" },
+                { label: "2 Hours", value: "2 hours" },
+                { label: "3 Hours", value: "3 hours" },
+                { label: "4 Hours", value: "4 hours" },
+                { label: "5 Hours", value: "5 hours" },
+                { label: "1 Day", value: "1 day" },
               ]}
             />
           </div>
           <AdditionalInput
-            key={1}
             values={eventFormData.speakers}
             inputId="speakers"
             inputName="Speakers"
@@ -126,7 +159,6 @@ const AddEvent = () => {
           />
 
           <AdditionalInput
-            key={2}
             values={eventFormData.categories}
             inputId="categories"
             inputName="Categories"
@@ -145,7 +177,6 @@ const AddEvent = () => {
           />
 
           <AdditionalInput
-            key={3}
             values={eventFormData.agendas}
             inputId="agendas"
             inputName="Agendas"
@@ -162,12 +193,12 @@ const AddEvent = () => {
               alert("agenda added");
             }}
           />
-          <input
+          <button
             type="submit"
-            onClick={() => {}}
             className="mt-4 w-full cursor-pointer rounded bg-cyan-500 p-2 font-semibold text-white hover:rounded-4xl hover:bg-cyan-700"
-            value="Add Event"
-          />
+          >
+            Add to Events
+          </button>
         </form>
       </div>
     </div>

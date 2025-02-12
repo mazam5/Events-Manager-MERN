@@ -1,13 +1,26 @@
 import cors from "cors";
 import { configDotenv } from "dotenv";
 import express from "express";
+import { createServer } from "http";
 import { Server } from "socket.io";
-
-configDotenv();
+import { connectDB } from "./src/configs/config_db.js";
+import authRoutes from "./src/routes/route_auth.js";
+import eventRoutes from "./src/routes/route_event.js";
+import { eventSocket } from "./src/socket/socket_event.js";
 
 const app = express();
-const io = new Server(process.env.SOCKET_PORT);
-app.use(cors());
+const server = createServer(app);
+const io = new Server(server, { cors: { origin: "*" } });
+
+configDotenv();
+const PORT = process.env.NODEJS_PORT;
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -15,9 +28,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.send("Hello API!");
+  res.send("Hello APIs!");
 });
 
-app.listen(process.env.NODEJS_PORT, () => {
-  console.log(`Server is running on port ${process.env.NODEJS_PORT}`);
+eventSocket(io);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/events", eventRoutes);
+
+server.listen(PORT, () => {
+  connectDB();
+  console.log(`🚀 Server running on port http://localhost:${PORT}`);
 });

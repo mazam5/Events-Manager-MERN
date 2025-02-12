@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import {
   CalendarPlus,
   ChartBarStacked,
@@ -10,12 +11,11 @@ import {
   Text,
   Timer,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import EventForm from "../../model/add_event";
 import AdditionalInput from "../components/AdditionalInput";
 import InputElement from "../components/InputElement";
 import InputSelect from "../components/InputSelect";
-import { jwtDecode } from "jwt-decode";
 
 const AddEvent = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -42,10 +42,11 @@ const AddEvent = () => {
   const [agenda, setAgenda] = useState("");
   const [category, setCategory] = useState("");
 
-  const onEventInputChange = (e) =>
-    setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
+  const onEventInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+  ) => setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
 
-  const addToEvents = async (e) => {
+  const addToEvents = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(

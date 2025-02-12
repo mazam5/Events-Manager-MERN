@@ -1,21 +1,20 @@
-import useAuth from "../../viewmodel/useAuth";
-
 const EventCard = ({
   event,
   index,
   completed,
+  onAttend,
 }: {
   event: {
     title: string;
     description: string;
     location: string;
-    dateTime: string;
+    date: string;
     mode: string;
   };
   index: number;
   completed: boolean;
+  onAttend?: () => void;
 }) => {
-  const { navigate } = useAuth();
   return (
     <div className="flex flex-col items-center justify-between rounded-xl shadow-md">
       <img
@@ -37,10 +36,11 @@ const EventCard = ({
         </h3>
         <div className="my-2 flex items-center justify-center">
           <p className="mx-auto max-xl:text-xs max-md:text-sm">
-            {new Date(event.dateTime).toLocaleDateString("en-GB", {
+            {/* {new Date(event.dateTime).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "short",
-            })}
+            })} */}
+            {event.date}
           </p>
           <span>|</span>
           <p className="mx-auto max-xl:text-xs max-md:text-sm">
@@ -52,8 +52,13 @@ const EventCard = ({
         <p className="mt-2">{event.description}</p>
         {!completed && (
           <div className="flex justify-end">
-            <button className="rounded-md bg-cyan-500 p-2 text-white hover:cursor-pointer hover:bg-cyan-700">
-              <span onClick={() => navigate("/event/" + index)}>
+            <button
+              className="rounded-md bg-cyan-500 p-2 text-white hover:cursor-pointer hover:bg-cyan-700"
+              onClick={onAttend}
+            >
+              <span
+              // onClick={() => navigate("/event/" + index)}
+              >
                 I'm Interested
               </span>
             </button>

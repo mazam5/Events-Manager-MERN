@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from "lucide-react";
 import { ChangeEvent, KeyboardEvent } from "react";
 
 const InputElement = ({
@@ -10,6 +11,9 @@ const InputElement = ({
   icon,
   isRequired = false,
   onKeyDown,
+  showPassword,
+  onShowPassword,
+  isPassword,
 }: {
   inputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
@@ -20,6 +24,9 @@ const InputElement = ({
   isRequired?: boolean;
   min?: string;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  showPassword?: boolean;
+  onShowPassword?: () => void;
+  isPassword?: boolean;
 }) => {
   return (
     <div>
@@ -41,8 +48,17 @@ const InputElement = ({
           id={inputId}
           value={inputValue}
           onChange={inputChange}
-          className="block w-full rounded border border-gray-300 px-3 py-2 shadow-sm hover:rounded-3xl focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none sm:text-sm"
+          className="block w-full rounded border border-gray-300 px-3 py-2 text-xl font-medium shadow-sm hover:rounded-3xl focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none sm:text-sm"
         />
+        {isPassword && (
+          <button
+            className="mx-2 rounded-full p-1 hover:cursor-pointer hover:bg-gray-200"
+            type="button"
+            onClick={onShowPassword}
+          >
+            {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
+          </button>
+        )}
       </div>
     </div>
   );

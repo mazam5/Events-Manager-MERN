@@ -12,14 +12,14 @@ const Navbar = () => {
           className="text-2xl font-medium hover:cursor-pointer md:text-3xl"
           onClick={() => navigate("/dashboard")}
         >
-          Events Management
+          Events Manager
         </h2>
         <div className="flex">
           <button
             onClick={() => navigate("/add-event")}
             disabled={localStorage.getItem("token") === null ? true : false}
             title="Only logged in users can add events"
-            className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white"
+            className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white disabled:opacity-50 disabled:hover:bg-cyan-500"
           >
             <span>Add Event</span>
             <BadgePlus size={24} />
@@ -28,7 +28,7 @@ const Navbar = () => {
             onClick={() => navigate("/manage-events")}
             title="Only logged in users can manage events"
             disabled={localStorage.getItem("token") === null ? true : false}
-            className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white"
+            className="flex items-center justify-center p-2 transition-shadow hover:cursor-pointer hover:rounded-2xl hover:bg-cyan-700 hover:text-white disabled:opacity-50 disabled:hover:bg-cyan-500"
           >
             <span>Manage Events</span>
           </button>

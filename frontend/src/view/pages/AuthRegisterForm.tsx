@@ -3,8 +3,14 @@ import useAuth from "../../viewmodel/useAuth";
 import InputElement from "../components/InputElement";
 
 const AuthRegisterForm = () => {
-  const { registerData, submitRegister, onRegisterChange, navigate } =
-    useAuth();
+  const {
+    registerData,
+    submitRegister,
+    onRegisterChange,
+    navigate,
+    showPassword,
+    setShowPassword,
+  } = useAuth();
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg">
@@ -39,18 +45,24 @@ const AuthRegisterForm = () => {
             <InputElement
               icon={<Lock size={24} />}
               inputName="Password"
-              inputType="password"
+              inputType={showPassword ? "text" : "password"}
               inputId="password"
               inputValue={registerData.password}
               inputChange={onRegisterChange}
+              isPassword={true}
+              showPassword={showPassword}
+              onShowPassword={() => setShowPassword(!showPassword)}
             />
             <InputElement
               icon={<Repeat size={24} />}
               inputName="Confirm Password"
-              inputType="password"
+              inputType={showPassword ? "text" : "password"}
               inputId="confirmPassword"
               inputValue={registerData.confirmPassword}
               inputChange={onRegisterChange}
+              isPassword={true}
+              showPassword={showPassword}
+              onShowPassword={() => setShowPassword(!showPassword)}
               // onKeyDown={(e) => e.key === "Enter" && submitRegister}
             />
             <button

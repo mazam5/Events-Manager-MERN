@@ -30,7 +30,7 @@ const InputSelect = ({
           onChange={inputChange}
           id={inputId}
           name={inputId}
-          className="block w-full rounded border border-gray-300 px-3 py-2 shadow-sm hover:rounded-3xl focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm"
+          className="block w-full rounded border border-gray-300 px-3 py-2 font-medium shadow-sm hover:rounded-3xl focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm"
         >
           {options.map((option, index) => (
             <option key={index} value={option.value}>

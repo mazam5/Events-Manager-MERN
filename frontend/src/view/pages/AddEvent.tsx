@@ -1,5 +1,3 @@
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import {
   CalendarPlus,
   ChartBarStacked,
@@ -11,62 +9,24 @@ import {
   Text,
   Timer,
 } from "lucide-react";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import EventForm from "../../model/add_event";
+import useAddEvent from "../../viewmodel/useAddEvent";
 import AdditionalInput from "../components/AdditionalInput";
 import InputElement from "../components/InputElement";
 import InputSelect from "../components/InputSelect";
 
 const AddEvent = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-  const bearerToken = localStorage.getItem("token");
-  const [decodedToken, setDecodedToken] = useState({ id: "" });
-
-  useEffect(() => {
-    if (bearerToken) {
-      setDecodedToken(jwtDecode(bearerToken));
-    }
-  }, []);
-  const [eventFormData, setEventFormData] = useState<EventForm>({
-    title: "Event Title",
-    location: "Hyderabad, India",
-    date: new Date().toISOString().split("T")[0],
-    duration: "",
-    mode: "",
-    speakers: [],
-    description: "Event Description",
-    categories: [],
-    agendas: [],
-  });
-  const [speaker, setSpeaker] = useState("");
-  const [agenda, setAgenda] = useState("");
-  const [category, setCategory] = useState("");
-
-  const onEventInputChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
-  ) => setEventFormData({ ...eventFormData, [e.target.name]: e.target.value });
-
-  const addToEvents = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        API_URL + "/events",
-        {
-          ...eventFormData,
-          createdBy: decodedToken.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-          },
-        },
-      );
-      console.log(response.data);
-      console.log("✅ Event Added Successfully");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const {
+    addToEvents,
+    eventFormData,
+    onEventInputChange,
+    speaker,
+    agenda,
+    category,
+    setCategory,
+    setAgenda,
+    setEventFormData,
+    setSpeaker,
+  } = useAddEvent();
 
   return (
     <div className="flex h-full flex-col items-center justify-center bg-gray-100">

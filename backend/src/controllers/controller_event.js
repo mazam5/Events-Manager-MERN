@@ -6,6 +6,7 @@ import {
   deleteEvent,
   attendEvent,
 } from "../services/service_event.js";
+import { io } from "../../server.js";
 
 export const createEvent = async (req, res) => {
   try {
@@ -71,10 +72,37 @@ export const deleteEventHandler = async (req, res) => {
   }
 };
 
+// export const attendEventHandler = async (req, res) => {
+//   try {
+//     const event = await attendEvent(req.params.eventId, req.user.id);
+//     res.json(event);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 export const attendEventHandler = async (req, res) => {
   try {
-    const event = await attendEvent(req.params.eventId, req.user.id);
-    res.json(event);
+    const event = await Event.findById(req.params.eventId);
+    if (!event) return res.status(404).json({ error: "Event not found" });
+
+    // Prevent duplicate attendance
+    if (!event.attendees.includes(req.user.id)) {
+      event.attendees.push(req.user.id);
+      await event.save();
+    }
+
+    // Get updated attendee list
+    const updatedEvent = await Event.findById(req.params.eventId).populate(
+      "attendees",
+      "username"
+    );
+
+    // Emit real-time attendee update
+    io.to(req.params.eventId).emit("updateAttendees", updatedEvent.attendees);
+
+    res
+      .status(200)
+      .json({ message: "You have joined the event", event: updatedEvent });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

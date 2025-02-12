@@ -1,10 +1,10 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../CONSTANTS";
 
 const useAuth = () => {
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
   const [loginData, setLoginData] = useState({
     email: "test123@gmail.com",
     password: "@Test#123",
@@ -15,6 +15,8 @@ const useAuth = () => {
     password: "@Test#123",
     confirmPassword: "@Test#123",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const onLoginChange = (e: ChangeEvent<HTMLInputElement>) =>
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
 
@@ -66,6 +68,8 @@ const useAuth = () => {
     registerData,
     setLoginData,
     setRegisterData,
+    showPassword,
+    setShowPassword,
   };
 };
 

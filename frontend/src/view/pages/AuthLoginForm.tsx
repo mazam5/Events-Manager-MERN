@@ -2,7 +2,14 @@ import { Lock, Mail } from "lucide-react";
 import useAuth from "../../viewmodel/useAuth";
 import InputElement from "../components/InputElement";
 const AuthLoginForm = () => {
-  const { loginData, onLoginChange, submitLogin, navigate } = useAuth();
+  const {
+    loginData,
+    onLoginChange,
+    submitLogin,
+    navigate,
+    showPassword,
+    setShowPassword,
+  } = useAuth();
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg">
@@ -22,10 +29,13 @@ const AuthLoginForm = () => {
               icon={<Lock size={24} />}
               isRequired={true}
               inputName="Password"
-              inputType="password"
+              inputType={showPassword ? "text" : "password"}
               inputId="password"
+              isPassword={true}
               inputValue={loginData.password}
               inputChange={onLoginChange}
+              showPassword={showPassword}
+              onShowPassword={() => setShowPassword(!showPassword)}
               // onKeyDown={(e) => e.key === "Enter" && submitLogin(e)}
             />
             <button

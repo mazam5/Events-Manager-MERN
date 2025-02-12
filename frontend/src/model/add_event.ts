@@ -1,4 +1,5 @@
 interface EventForm {
+  eventId: number;
   title: string;
   location: string;
   date: string;

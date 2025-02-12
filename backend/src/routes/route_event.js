@@ -16,6 +16,7 @@ router.get("/", getEventsHandler);
 router.get("/:eventId", getEventHandler);
 router.put("/:eventId", authenticate, updateEventHandler);
 router.delete("/:eventId", authenticate, deleteEventHandler);
-router.post("/:eventId/attend", authenticate, attendEventHandler);
+// router.post("/:eventId/attend", authenticate, attendEventHandler);
+router.post("/:eventId/attend", attendEventHandler);
 
 export default router;
